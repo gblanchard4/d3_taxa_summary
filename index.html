@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.chart rect {
+  fill: steelblue;
+}
+
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+
+</style>
+<svg class="chart"></svg>
+<script src="d3.js"></script>
+<script>
+
+var width = 420,
+    barHeight = 20;
+
+// Levels for variables
+
+var l2;
+
+
+d3.csv("wat/2.txt", function(error, data) {
+
+        if (error) {  //If error is not null, something went wrong.
+          console.log(error);  //Log the error.
+        } else {      //If no error, the file loaded correctly. Yay!
+          console.log(data);   //Log the data.
+
+      //Include other code to execute after successful file load here
+      l2 = data;
+        }
+});
+
+
+</script>
