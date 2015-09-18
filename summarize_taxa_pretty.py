@@ -37,7 +37,7 @@ def read_taxa_files(file_list, category, outdir):
 				if line .startswith('#'):
 					header = line.lstrip('#').rstrip('\n').split('\t')
 					category_pos = header.index(category)
-					taxa_pos = header.index("None;Other")
+					taxa_pos = header.index("Description")+1
 					outlevel.write(header[category_pos]+','+','.join(map(str,header[taxa_pos:]))+'\n')
 				else:
 					clean_line =  line.rstrip('\n').split('\t')
