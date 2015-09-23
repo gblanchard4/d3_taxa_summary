@@ -1,0 +1,42 @@
+Logging started at 16:18:44 on 23 Sep 2015
+QIIME version: 1.9.1
+
+qiime_config values:
+blastmat_dir	/media/nfs_opt/qiime19/blast-2.2.22-release/data
+pick_otus_reference_seqs_fp	/media/nfs_opt/qiime19/qiime19-base/local/lib/python2.7/site-packages/qiime_default_reference/gg_13_8_otus/rep_set/97_otus.fasta
+sc_queue	all.q
+pynast_template_alignment_fp	/media/nfs_opt/qiime19/qiime19-base/local/lib/python2.7/site-packages/qiime_default_reference/gg_13_8_otus/rep_set_aligned/85_otus.pynast.fasta
+cluster_jobs_fp	start_parallel_jobs.py
+assign_taxonomy_reference_seqs_fp	/media/nfs_opt/qiime19/qiime19-base/local/lib/python2.7/site-packages/qiime_default_reference/gg_13_8_otus/rep_set/97_otus.fasta
+torque_queue	friendlyq
+jobs_to_start	1
+denoiser_min_per_core	50
+assign_taxonomy_id_to_taxonomy_fp	/media/nfs_opt/qiime19/qiime19-base/local/lib/python2.7/site-packages/qiime_default_reference/gg_13_8_otus/taxonomy/97_otu_taxonomy.txt
+temp_dir	/tmp/
+blastall_fp	/media/nfs_opt/qiime19/blast-2.2.22-release/bin/blastall
+seconds_to_sleep	1
+
+parameter file values:
+
+Input file md5 sums:
+raw/filtered.biom: c54ed8a0a13d83b3a7a7350ec9b79e05
+raw/filtered.map: 39fe46b62fad393e534764e9d26212fd
+
+Executing commands.
+
+# Summarize Taxonomy command 
+summarize_taxa.py -i raw/filtered.biom -o qiime_output 
+
+Stdout:
+
+Stderr:
+
+# Plot Taxonomy Summary command 
+plot_taxa_summary.py -i qiime_output/filtered_L2.txt,qiime_output/filtered_L3.txt,qiime_output/filtered_L4.txt,qiime_output/filtered_L5.txt,qiime_output/filtered_L6.txt -o qiime_output/taxa_summary_plots/ 
+
+Stdout:
+
+Stderr:
+
+
+Logging stopped at 16:19:14 on 23 Sep 2015

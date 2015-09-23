@@ -1,107 +1,73 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
-
-body {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.bar {
-  fill: steelblue;
-}
-
-.x.axis path {
-  display: none;
-}
-
-rect:hover {
-				fill: orange;
-			}
-
-#tooltip {
-	position: absolute;
-	width: 200px;
-	height: auto;
-	padding: 10px;
-	background-color: white;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-	-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-	pointer-events: none;
-}
-
-#tooltip.hidden {
-	display: none;
-}
-
-#tooltip p {
-	margin: 0;
-	font-family: sans-serif;
-	font-size: 16px;
-	line-height: 20px;
-}
-
-</style>
+<head>
+    <script src="d3.js"></script>
+    <style>
+    
+        body {
+          font: 10px sans-serif;
+        }
+    
+        .axis path,
+        .axis line {
+          fill: none;
+          stroke: #000;
+          shape-rendering: crispEdges;
+        }
+    
+        .bar {
+          fill: steelblue;
+        }
+    
+        .x.axis path {
+          display: none;
+        }
+    
+        .tooltip {
+          background: #eee;
+          box-shadow: 0 0 5px #999999;
+          color: #333;
+          display: none;
+          font-size: 12px;
+          left: 130px;
+          padding: 10px;
+          position: absolute;
+          text-align: center;
+          top: 95px;
+          width: 80px;
+          z-index: 10;
+        }
+    </style>
+</head>
 <body>
 
     <div id="l1">
-        <div id="tooltip" class="hidden">
-			<p><strong>Important Label Heading</strong></p>
-			<p><span id="value">100</span>%</p>
-		</div>
+        <p><strong>Kingdom</strong></p>
     </div>
     <div id="l2">
-        <div id="tooltip" class="hidden">
-			<p><strong>Important Label Heading</strong></p>
-			<p><span id="value">100</span>%</p>
-		</div>
+        <p><strong>Phylum</strong></p>
     </div>
     <div id="l3">
-        <div id="tooltip" class="hidden">
-			<p><strong>Important Label Heading</strong></p>
-			<p><span id="value">100</span>%</p>
-		</div>
+        <p><strong>Class</strong></p>
     </div>
     <div id="l4">
-        <div id="tooltip" class="hidden">
-			<p><strong>Important Label Heading</strong></p>
-			<p><span id="value">100</span>%</p>
-		</div>
+        <p><strong>Order</strong></p>
     </div>
     <div id="l5">
-        <div id="tooltip" class="hidden">
-			<p><strong>Important Label Heading</strong></p>
-			<p><span id="value">100</span>%</p>
-		</div>
+        <p><strong>Family</strong></p>
     </div>
     <div id="l6">
-        <div id="tooltip" class="hidden">
-			<p><strong>Important Label Heading</strong></p>
-			<p><span id="value">100</span>%</p>
-		</div>
+        <p><strong>Genus</strong></p>
     </div>
     <div id="l7">
-        <div id="tooltip" class="hidden">
-			<p><strong>Important Label Heading</strong></p>
-			<p><span id="value">100</span>%</p>
-		</div>
+        <p><strong>Species</strong></p>
     </div>
 
-<script src="d3.js"></script>
 <script>
     function graph_taxa(file_string, level) {
         d3.csv(file_string, function(error, data) {
             if (error) throw error;
+
             var margin = {top: 20, right: 20, bottom: 30, left: 40},
             w = 960 - margin.left - margin.right,
             h = 500 - margin.top - margin.bottom;
@@ -121,7 +87,6 @@ rect:hover {
             var yAxis = d3.svg.axis()
             .scale(yScale)
             .orient("left")
-            // .tickFormat(d3.format(".2s"));
 
             var svg = d3.select(level).append("svg")
             .attr("width", w + margin.left + margin.right)
@@ -147,15 +112,7 @@ rect:hover {
             .attr("transform", "translate(0," + h + ")")
             .call(xAxis);
 
-            svg.append("g")
-            .attr("class", "y axis")
-            .call(yAxis)
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", ".71em")
-            .style("text-anchor", "end")
-            .text("Abundance");
+        
 
             var sample = svg.selectAll(".sample")
             .data(data)
@@ -171,27 +128,25 @@ rect:hover {
             .attr("height", function(d) { return yScale(d.y0) - yScale(d.y1); })
             .style("fill", function(d) { return color(d.name); });
 
-
             var legend = svg.selectAll(".legend")
             .data(color.domain().slice().reverse())
             .enter().append("g")
             .attr("class", "legend")
             .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
 
-            // legend.append("rect")
-            //     .attr("x", width)
-            //     .attr("width", 18)
-            //     .attr("height", 18)
-            //     .style("fill", color);
-            //
-            // legend.append("text")
-            //     .attr("x", width)
-            //     .attr("y", 9)
-            //     .attr("dy", ".35em")
-            //     .style("text-anchor", "end")
-            //     .text(function(d) { return d; });
+            legend.append("rect")
+                .attr("x", width)
+                .attr("width", 18)
+                .attr("height", 18)
+                .style("fill", color);
+            legend.append("text")
+                .attr("x", width)
+                .attr("y", 9)
+                .attr("dy", ".35em")
+                .style("text-anchor", "end")
+                .text(function(d) { return d; });
 
-        });
+    });
 }
 
 graph_taxa("wat/1.txt",l1)
