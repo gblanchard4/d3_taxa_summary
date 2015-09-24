@@ -35,7 +35,7 @@ def read_taxa_files(file_list, category, outdir):
 		with open(file, 'r') as handle, open(outdir+'/'+level+'.txt', 'w') as outlevel:
 			for line in handle:
 				if line .startswith('#'):
-					header = line.lstrip('#').rstrip('\n').split('\t')
+					header = line.lstrip('#').rstrip('\n').replace(';','-').replace('[','').replace(']','').split('\t')
 					category_pos = header.index(category)
 					taxa_pos = header.index("Description")+1
 					outlevel.write(header[category_pos]+','+','.join(map(str,header[taxa_pos:]))+'\n')
